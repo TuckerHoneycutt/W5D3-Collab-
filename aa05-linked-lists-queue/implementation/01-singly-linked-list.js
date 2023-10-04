@@ -55,15 +55,18 @@ class SinglyLinkedList {
 
     removeFromHead() {
         // Step1: Should return undefined if the list is empty
-        // Step4: Should reassign the head pointer to null when head is removed from a list of only one node
         if(!this.head){
             return undefined;
         }
         // Step2: Should remove head node from the list by reassigning the head pointer to the next node
         const removedNode = this.head;
         this.head = this.head.next
+
          // Step3: Should properly update the length property after removing the head node (decrement)
-        this.length --;
+         this.length --;
+         this.head.prev = null
+         // Step4: Should reassign the head pointer to null when head is removed from a list of only one node
+
         // Step5: Should return the removed head node when removeFromHead is called
         return removedNode;
 

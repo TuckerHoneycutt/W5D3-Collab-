@@ -20,13 +20,14 @@ class DoublyLinkedList {
         // Add node of val to head of linked list
         let newNode = new DoublyLinkedNode(val);
 
-        if (this.length >= 0) {
-            this.head.previous = newNode;
-            newNode.next = this.head;
-            this.head = newNode;
-        } else {
+        if (!this.head) {
+
             this.head = newNode;
             this.tail = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head.prev = newNode;
+            this.head = newNode;
         }
 
         this.length++;
@@ -36,40 +37,80 @@ class DoublyLinkedList {
 
     addToTail(val) {
         // Add node of val to tail of linked list
-
-        // Your code here 
+        const newNode = new DoublyLinkedNode(val);
+        if(!this.head){
+            this.head = newNode;
+            this.tail = newNode;
+        }else{
+            newNode.prev = this.tail;
+            this.tail.next = newNode;
+            this.tail = newNode;
+        }
+        this.length++;
+        return this.length;
+        // Your code here
 
         // Write your hypothesis on the time complexity of this method here
     }
 
     removeFromHead() {
-        // Remove node at head
-
-        // Your code here 
+         // Step1: Should return undefined if the list is empty
+        // Step4: Should reassign the head pointer to null when head is removed from a list of only one node
+        if(!this.head){
+            return undefined;
+        }
+        // Step2: Should remove head node from the list by reassigning the head pointer to the next node
+        const removedNode = this.head;
+        this.head = this.head.next
+        if(this.head){ //Increment through each element in a list, removing the prev of the head
+            this.head.prev = null
+        }else { //When we get to the last element and we remove the head, also remove the tail.
+            this.tail = null
+        }
+         // Step3: Should properly update the length property after removing the head node (decrement)
+        this.length --;
+        // Step5: Should return the removed head node when removeFromHead is called
+        return removedNode.value;
 
         // Write your hypothesis on the time complexity of this method here
     }
 
     removeFromTail() {
-        // Remove node at tail
+        if(!this.head){
+            return undefined
+        }
 
-        // Your code here 
+        const removedNode = this.tail;
+        this.tail = this.tail.prev;
+        if(this.tail){
+            this.tail.next = null
+        }else{
+            this.head = null
+        }
+        this.length --;
+        return removedNode.value;
+
+        // Your code here
 
         // Write your hypothesis on the time complexity of this method here
     }
 
     peekAtHead() {
-        // Return value of head node
-
-        // Your code here 
+        if(!this.head){
+            return undefined
+        }else{
+            return this.head.value
+        }
 
         // Write your hypothesis on the time complexity of this method here
     }
 
     peekAtTail() {
-        // Return value of tail node
-
-        // Your code here 
+        if(!this.tail){
+            return undefined
+        }else{
+            return this.tail.value
+        }
 
         // Write your hypothesis on the time complexity of this method here
     }
